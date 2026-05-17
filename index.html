@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Fußball Ticker - Chrome Extension</title>
+    <style>
+        :root {
+            --primary: #22c55e;
+            --primary-dark: #16a34a;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        h1 { margin: 0; font-size: 2.5rem; }
+        .badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        h2 { color: var(--dark); border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; }
+        ol, ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        a { color: var(--primary); text-transform: none; text-decoration: none; font-weight: bold; }
+        a:hover { color: var(--primary-dark); }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th { background-color: var(--light); color: var(--dark); }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        .nav-links {
+            margin-top: 1rem;
+        }
+        .nav-links a {
+            margin: 0 10px;
+            color: var(--gray);
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>⚽ Live Fußball Ticker <span class="badge">v0.1.0</span></h1>
+        <p>Erlebe deine Lieblingsspiele direkt im Browser-Icon – minimal, schnell und ohne offene Tabs.</p>
+    </header>
+
+    <div class="container">
+        
+        <section id="anleitung">
+            <h2>🚀 Schnellstart-Anleitung</h2>
+            <p>Um die Erweiterung kostenlos und ohne Einschränkungen zu nutzen, verwendet dieser Ticker die "Bring Your Own Key"-Strategie. Das bedeutet, du nutzt deinen eigenen Gratis-Schlüssel der weltweit bekannten Datenplattform <em>football-data.org</em>.</p>
+            <ol>
+                <li>Installiere die Erweiterung aus dem <strong>Chrome Web Store</strong>.</li>
+                <li>Besuche die Website <a href="https://www.football-data.org/" target="_blank">football-data.org</a> und klicke oben rechts auf <strong>"Get a free API token"</strong>.</li>
+                <li>Trage deine E-Mail-Adresse ein. Du erhältst deinen persönlichen API-Schlüssel sofort per Mail.</li>
+                <li>Öffne das Popup der Erweiterung in deinem Browser, klicke unten auf das <strong>Zahnrad (Einstellungen)</strong>, füge deinen Schlüssel ein und klicke auf <strong>Speichern</strong>. Fertig!</li>
+            </ol>
+        </section>
+
+        <section id="tarife">
+            <h2>🏆 Free vs. Pro Version</h2>
+            <p>Du kannst den Ticker dauerhaft kostenlos nutzen. Wenn du das Projekt unterstützen und das volle Erlebnis freischalten möchtest, kannst du direkt in der App via ExtensionPay auf die Pro-Version upgraden.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Gratis-Version</th>
+                        <th>Pro-Version</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Live-Spielstände (Bundesliga, Premier League, etc.)</td>
+                        <td>Ja</td>
+                        <td>Ja</td>
+                    </tr>
+                    <tr>
+                        <td>Gleichzeitige Spiele im Blick behalten</td>
+                        <td>Maximal 1 Spiel</td>
+                        <td><strong>Unbegrenzt viele Spiele</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Automatischer Icon-Wechsel (Karussell)</td>
+                        <td>Nein</td>
+                        <td><strong>Ja (rotiert alle 5 Sek.)</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Tor-Animation (Echtes Konfetti auf YouTube & Co.)</td>
+                        <td>Nein</td>
+                        <td><strong>Ja 🎉</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="datenschutz">
+            <h2>🔒 Datenschutzerklärung (Privacy Policy)</h2>
+            <p>Der Schutz deiner Daten hat bei uns oberste Priorität. Diese Erweiterung wurde so entwickelt, dass sie maximale Privatsphäre garantiert:</p>
+            <ul>
+                <li><strong>Keine Datenerfassung:</strong> Wir sammeln, speichern oder übertragen keinerlei persönliche Daten oder dein Surf-Verhalten.</li>
+                <li><strong>Lokale Speicherung:</strong> Dein eingegebener API-Schlüssel sowie deine ausgewählten Spiele werden ausschließlich lokal auf deinem eigenen Computer im sicheren <code>chrome.storage.local</code> deines Browsers verschlüsselt gespeichert.</li>
+                <li><strong>Keine eigenen Server:</strong> Es gibt keine externen Server unsererseits. Die Erweiterung kommuniziert direkt und exklusiv von deinem Browser aus mit der offiziellen API von football-data.org.</li>
+                <li><strong>Sichere Zahlung:</strong> Die Pro-Freischaltung wird über den zertifizierten Drittanbieter <em>ExtensionPay</em> abgewickelt, welcher auf der sicheren Banking-Infrastruktur von Stripe basiert. Wir haben zu keinem Zeitpunkt Zugriff auf deine Zahlungsdaten.</li>
+            </ul>
+        </section>
+
+        <section id="disclaimer">
+            <h2>⚖️ Rechtlicher Hinweis</h2>
+            <p>Diese Erweiterung ist ein unabhängiges Open-Source-Projekt und steht in keiner offiziellen Verbindung oder Partnerschaft mit der FIFA, der UEFA, der DFL, der Premier League oder der Plattform football-data.org. Alle Logos und Markennamen sind Eigentum ihrer jeweiligen Inhaber.</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Live Fußball Ticker. Entwickelt mit ❤️ für Fußballfans.</p>
+        <div class="nav-links">
+            <a href="#anleitung">Anleitung</a> | 
+            <a href="#tarife">Preise</a> | 
+            <a href="#datenschutz">Datenschutz</a>
+        </div>
+    </footer>
+
+</body>
+</html>
